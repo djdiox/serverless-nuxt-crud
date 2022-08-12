@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "env-cmd -e local nuxt",
-    "deploy": "env-cmd -e prod sls deploy --stage prod"
+    "deploy": "env-cmd -e prod sls deploy --stage dev"
   },
   "dependencies": {
     "core-js": "^3.8.3",

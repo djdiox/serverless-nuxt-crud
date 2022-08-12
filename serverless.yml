@@ -3,11 +3,14 @@ service: serverless-nuxt
 plugins:
   - serverless-nuxt-plugin
   - serverless-apigw-binary
-  - serverless-domain-manager
+  # - serverless-domain-manager
 
+useDotenv: true
 provider:
   name: aws
-  region: ap-northeast-2 # Region to use
+  region: eu-central-1 # Region to use
+  lambdaHashingVersion: 20201221
+  frameworkVersion: '3'
   stage: ${opt:stage, 'dev'}
   runtime: nodejs12.x
   environment:
@@ -16,13 +19,13 @@ provider:
 
 custom:
   customDomain:
-    domainName: ${env:DOMAIN_NAME}
+       domainName: ${env:DOMAIN_NAME}
   apigwBinary:
     types:
       - 'image/*'
   nuxt:
     version: v${file(./package.json):version}
-    bucketName: serverless-nuxt-${self:provider.stage} 
+    bucketName: serverless-nuxt-${self:provider.stage}
 
 resources:
   Resources:
@@ -36,7 +39,7 @@ resources:
               - GET
               - HEAD
               AllowedOrigins:
-              - https://${env:DOMAIN_NAME}
+              - https://cr2k28m761.execute-api.eu-central-1.amazonaws.com
 
 functions:
   nuxt:
